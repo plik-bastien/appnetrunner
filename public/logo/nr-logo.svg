@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="220" viewBox="0 0 220 220">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1">
+      <stop offset="0" stop-color="#fcee09"/>
+      <stop offset="1" stop-color="#00e5ff"/>
+    </linearGradient>
+  </defs>
+  <circle cx="110" cy="110" r="100" fill="none" stroke="url(#g)" stroke-width="6"/>
+  <g fill="none" stroke="url(#g)" stroke-width="10" stroke-linecap="round">
+    <path d="M60 140 L110 60 L160 140"/>
+    <path d="M80 120 L140 120"/>
+  </g>
+  <text x="110" y="180" text-anchor="middle" font-size="28" font-family="Rajdhani, sans-serif" fill="#fff">NETRUNNER</text>
+</svg>
