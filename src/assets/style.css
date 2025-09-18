@@ -34,7 +34,7 @@
 .theme-runner .cp-panel{ box-shadow: 0 0 0 2px rgba(255,45,45,0.10), 0 0 25px rgba(255,45,45,0.18); }
 
 /* Modal (scoped) */
-.side-wrap { position: relative; width: 100%; height: 100%; isolation: isolate; display: flex; justify-content: center; align-items: center; }
+.side-wrap { position: relative; width: calc(100vw - 32px); height: 100%; isolation: isolate; display: flex; justify-content: center; align-items: center; }
 .side-modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.65); }
 .side-modal { position: absolute; inset: 0; display:flex; align-items:center; justify-content:center; padding: 12px; }
 .cp-modal{ position:relative; padding:16px; background: linear-gradient(180deg, rgba(16,31,43,0.96), rgba(10,16,21,0.96)); border:1px solid #102532; clip-path: polygon(0% var(--cp-notch), var(--cp-notch) 0%, 100% 0%, 100% calc(100% - var(--cp-notch)), calc(100% - var(--cp-notch)) 100%, 0% 100%); }
@@ -79,6 +79,9 @@
   max-width: 560px;
 }
 @media (orientation: landscape) {
+  .side-wrap{
+    width: 100%;
+  }
   .rotor--runner { transform: translate(-50%, -50%); }
   .rotor--corp { transform: translate(-50%, -50%); }
   .mid-banner {
