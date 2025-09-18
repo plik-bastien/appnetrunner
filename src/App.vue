@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import SideBoard from './components/SideBoard.vue'
 import ConfirmModal from './components/ConfirmModal.vue'
+import SplashScreen from './components/SplashScreen.vue'
 import { useGameStore } from './stores/game'
 const g = useGameStore()
 const askReset = ref(false)
@@ -9,8 +10,8 @@ function doReset(){ g.reset(); askReset.value = false }
 </script>
 
 <template>
+  <SplashScreen :once-per-session="false" />
   <main class="main-screen relative">
-    <!-- Corpo en haut, inversée pour l'adversaire -->
     <section class="half-corp border-b border-white/10 rotate-180 bg-corp-skin theme-corp">
       <div class="section-inner">
         <div class="side-wrap">
@@ -19,7 +20,6 @@ function doReset(){ g.reset(); askReset.value = false }
       </div>
     </section>
 
-    <!-- Bandeau central -->
     <div class="mid-banner">
       <div class="mid-banner__title">Android Netrunner</div>
       <div class="mid-banner__reset">
@@ -27,7 +27,6 @@ function doReset(){ g.reset(); askReset.value = false }
       </div>
     </div>
 
-    <!-- Runner en bas (rouge) -->
     <section class="half-runner bg-runner-skin theme-runner">
       <div class="section-inner">
         <div class="side-wrap">

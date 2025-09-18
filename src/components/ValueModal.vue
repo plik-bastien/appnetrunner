@@ -11,9 +11,9 @@ const emit = defineEmits<{(e:'close'):void,(e:'inc',delta:number):void}>()
         <button class="cp-panel px-2 py-1" @click="emit('close')">Fermer</button>
       </header>
       <div class="flex items-center justify-between">
-        <button class="cp-panel text-xl px-3 py-2" @click="emit('inc',-1)">−</button>
+        <button class="cp-panel text-xl px-3 py-2" @click="emit('inc',-1)">-</button>
         <div class="font-mono text-5xl">{{ value }}</div>
-        <button class="cp-panel text-xl px-3 py-2" @click="emit('inc',+1)">＋</button>
+        <button class="cp-panel text-xl px-3 py-2" @click="emit('inc',+1)">+</button>
       </div>
     </div>
   </div>

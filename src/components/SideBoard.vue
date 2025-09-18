@@ -61,8 +61,6 @@ function inc(delta:number){
         <ValueTile label="CRÉDITS" :value="(props.side==='runner'?g.runner:g.corp).credits" :active="openKey==='credits'"/>
       </div>
 
-
-
       <template v-if="props.side==='corp'">
         <div @click="openKey='badPub'">
           <ValueTile label="MAUVAISE PRESSE" :value="g.corp.badPub" :active="openKey==='badPub'"/>
@@ -77,8 +75,7 @@ function inc(delta:number){
       </template>
     </div>
 
-    <!-- CLICS (piste) pleine largeur en bas -->
-    <div class="mt-3">
+    <div class="mt-2">
       <ClickTrack :value="(props.side==='runner'?g.runner:g.corp).clicks"
                   :max="props.side==='runner'?4:3"
                   @update="v => (props.side==='runner'?g.runner:g.corp).clicks = v" />
