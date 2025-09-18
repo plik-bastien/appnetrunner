@@ -57,3 +57,132 @@
 /* Splash transitions */
 .splash-fade-enter-active, .splash-fade-leave-active { transition: opacity .28s ease; }
 .splash-fade-enter-from, .splash-fade-leave-to { opacity: 0; }
+
+
+/* === Rotor : pivote le contenu en paysage === */
+.rotor-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  isolation: isolate;
+  overflow: hidden;
+}
+.rotor {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform-origin: center center;
+  transform: translate(-50%, -50%);
+}
+.rotor > .side-wrap,
+.rotor .board {
+  max-width: 560px;
+}
+@media (orientation: landscape) {
+  .rotor--runner { transform: translate(-50%, -50%); }
+  .rotor--corp { transform: translate(-50%, -50%); }
+  .mid-banner {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 40px;
+    z-index: 40;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .main-screen { flex-direction: row; }
+  .half-corp, .half-runner {
+    flex: 1 1 0%;
+    min-height: 100dvh;
+    max-height: 100dvh;
+  }
+}
+@media (orientation: portrait) {
+  .half-corp { transform: none; }
+}
+
+
+/* ===== Scroll uniquement en paysage + bandeau fixé ===== */
+
+/* En portrait : pas de scroll, on cale à la hauteur de l'écran */
+@media (orientation: portrait) {
+  html, body, .main-screen { height: 100dvh; overflow: hidden; }
+}
+
+/* En paysage : on autorise le scroll vertical global,
+   on réserve la place du bandeau (40px) et on limite un minimum de hauteur
+   pour forcer l'apparition du scroll si nécessaire. */
+@media (orientation: landscape) {
+  html, body { height: auto; overflow-y: auto; }
+
+  /* Bandeau déjà en position: fixed; height: 40px; (déclaré plus haut) */
+  .main-screen {
+    padding-top: 40px;         /* éviter que le contenu passe sous le bandeau */
+    min-height: 1100px;        /* min raisonnable -> le scroll apparaît si contenu plus grand */
+  }
+
+  /* Les panneaux gauche/droite prennent au moins toute la hauteur visible moins le bandeau,
+     mais peuvent s'étirer si le contenu dépasse (scroll global). */
+  .half-corp, .half-runner {
+    height: auto;
+    min-height: calc(100dvh - 40px);
+  }
+}
+
+
+/* Left menu button holder in banner */
+.mid-banner__gear { position:absolute; left:12px; top:50%; transform:translateY(-50%); }
+
+
+
+/* ===== ORIENTATION LAYOUT (CLEAN) ===== */
+
+/* Landscape: side-by-side, pas de rotation, bandeau fixe en haut + scroll global */
+@media (orientation: landscape) {
+  .main-screen { 
+    flex-direction: row;
+    padding-top: 40px;            /* ne pas passer sous le bandeau */
+  }
+
+  .half-corp, .half-runner {
+    flex: 1 1 0%;
+    height: auto;
+    min-height: calc(100dvh - 40px);
+    max-height: 100dvh;
+  }
+
+  /* Les rotors restent droits en landscape (pas de rotate) */
+  .rotor--runner,
+  .rotor--corp {
+    transform: translate(-50%, -50%) !important;
+  }
+
+  /* Bandeau fixe (si pas déjà défini plus haut) */
+  .mid-banner {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 40px;
+    z-index: 40;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  /* Scroll uniquement en paysage */
+  html, body { height: auto; overflow-y: auto; }
+}
+
+/* Portrait: face-à-face avec logique "inverse" demandée
+   - Par défaut (non inversé) : Runner pivoté 180°, Corpo droite
+   - Inversé (Runner en haut) : Corpo pivotée 180°, Runner droit
+   + pas de scroll */
+@media (orientation: portrait) {
+  /* Par défaut : Corp droite */
+  .half-corp { transform: none !important; }
+
+  /* Par défaut : Runner pivoté */
+  .rotor--runner { transform: translate(-50%, -50%) rotate(180deg) !important; }
+
+  /* Quand inversé (Runner en haut) */
+  .is-swapped .rotor--runner { transform: translate(-50%, -50%) !important; }
+  .is-swapped .half-corp     { transform: rotate(180deg) !important; }
+
+  /* Pas de scroll en portrait */
+  html, body, .main-screen { height: 100dvh; overflow: hidden; }
+}
