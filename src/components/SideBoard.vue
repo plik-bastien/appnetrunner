@@ -53,6 +53,12 @@ function inc(delta: number) {
   }
 }
 
+function vibrate(ms = 10) { try { (navigator as any)?.vibrate?.(ms) } catch { } }
+function bumpCredits(delta: number) {
+  g.inc(props.side, 'credits', delta)
+  vibrate()
+}
+
 </script>
 
 <template>
@@ -80,20 +86,47 @@ function inc(delta: number) {
       </div>
 
       <!-- CRÉDITS -->
-      <div @click="openKey = 'credits'">
-        <ValueTile :value="(props.side === 'runner' ? g.runner : g.corp).credits" :active="openKey === 'credits'">
-          <template #label>
-            <span v-if="!showIcons">CRÉDITS</span>
+      <div>
+        <!-- Mode icônes : inline controls -->
+        <template v-if="showIcons">
+          <div class="cp-panel p-2 relative overflow-hidden flex items-center justify-between gap-2"
+            :class="props.side === 'corp' ? 'bg-corp-strong' : 'bg-runner-strong'">
 
-            <svg v-else version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-              width="17" height="32" viewBox="0 0 17 32">
-              <path fill="currentColor"
-                d="M8.393 1.878l8.116 7.311v13.599l-8.116 7.311-8.116-7.311v-13.599l8.116-7.311zM14.608 21.911v-11.844l-6.215-5.557-5.995 5.484 5.995 5.703v6.215l-6.215-5.922v5.922l6.215 5.483 6.215-5.483z" />
-            </svg>
+            <!-- Label icône -->
+            <span class="cp-title flex items-center gap-1 shrink-0 text-sm sm:text-base">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 17 32" fill="currentColor"
+                aria-hidden="true">
+                <path
+                  d="M8.393 1.878l8.116 7.311v13.599l-8.116 7.311-8.116-7.311v-13.599l8.116-7.311zM14.608 21.911v-11.844l-6.215-5.557-5.995 5.484 5.995 5.703v6.215l-6.215-5.922v5.922l6.215 5.483 6.215-5.483z" />
+              </svg>
+            </span>
 
-          </template>
-        </ValueTile>
+            <!-- Contrôles inline -->
+            <div class="flex items-center gap-2 shrink-0">
+              <button type="button" class="btn-incdec" @click.stop="bumpCredits(-1)">−</button>
+
+              <span class="text-2xl sm:text-3xl font-mono w-12 text-center truncate">
+                {{ (props.side === 'runner' ? g.runner : g.corp).credits }}
+              </span>
+
+              <button type="button" class="btn-incdec" @click.stop="bumpCredits(+1)">+</button>
+            </div>
+          </div>
+        </template>
+
+        <!-- Mode texte : ouverture popin -->
+        <template v-else>
+          <div @click="openKey = 'credits'">
+            <ValueTile :value="(props.side === 'runner' ? g.runner : g.corp).credits" :active="openKey === 'credits'">
+              <template #label>
+                CRÉDITS
+              </template>
+            </ValueTile>
+          </div>
+        </template>
       </div>
+
+
 
       <!-- CORPORATION ONLY -->
       <template v-if="props.side === 'corp'">

@@ -246,3 +246,30 @@ svg[fill="none"] {
   width: 26px;
   vertical-align: middle;
 }
+
+.bg-corp-strong {
+  background: rgba(0, 120, 255, 0.3);
+
+}
+.bg-runner-strong {
+  background: rgba(255, 0, 60, 0.3);
+
+}
+.bg-runner-strong .gap-2, .bg-corp-strong .gap-2 {
+  gap: 0px;
+}
+.bg-runner-strong .text-2xl, .bg-corp-strong .text-2xl {
+      width: auto;
+    padding: 0px 0.3em;
+}
+
+.btn-incdec {
+  @apply cp-panel text-xl sm:text-2xl px-3 py-1 rounded;
+  min-width: 2.2rem;
+  min-height: 2.2rem;
+  line-height: 1;
+  transition: transform .08s ease, background-color .2s ease;
+}
+.btn-incdec:active {
+  transform: scale(0.9);
+}
