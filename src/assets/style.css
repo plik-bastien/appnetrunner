@@ -94,7 +94,7 @@
   .main-screen { flex-direction: row; }
   .half-corp, .half-runner {
     flex: 1 1 0%;
-    min-height: 100dvh;
+    min-height: 100%;
     max-height: 100dvh;
   }
 }
@@ -119,14 +119,14 @@
   /* Bandeau déjà en position: fixed; height: 40px; (déclaré plus haut) */
   .main-screen {
     padding-top: 40px;         /* éviter que le contenu passe sous le bandeau */
-    min-height: 1100px;        /* min raisonnable -> le scroll apparaît si contenu plus grand */
+    min-height: 386px;        /* min raisonnable -> le scroll apparaît si contenu plus grand */
   }
 
   /* Les panneaux gauche/droite prennent au moins toute la hauteur visible moins le bandeau,
      mais peuvent s'étirer si le contenu dépasse (scroll global). */
   .half-corp, .half-runner {
     height: auto;
-    min-height: calc(100dvh - 40px);
+    min-height: 100%;
   }
 }
 
@@ -148,7 +148,7 @@
   .half-corp, .half-runner {
     flex: 1 1 0%;
     height: auto;
-    min-height: calc(100dvh - 40px);
+    min-height: 100%;
     max-height: 100dvh;
   }
 
@@ -188,4 +188,61 @@
 
   /* Pas de scroll en portrait */
   html, body, .main-screen { height: 100dvh; overflow: hidden; }
+}
+
+/* ---- Toggle switch pour "Afficher les icônes" ---- */
+.ui-switch {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  line-height: 1;
+}
+.ui-switch input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 0;
+  height: 0;
+}
+.ui-switch .track {
+  position: relative;
+  width: 48px;
+  height: 28px;
+  border-radius: 9999px;
+  background: #111a22;
+  border: 1px solid #1f2b36;
+  flex: 0 0 auto;
+  transition: background-color .2s ease, border-color .2s ease;
+}
+.ui-switch .knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 24px;
+  height: 24px;
+  border-radius: 9999px;
+  background: #e5edf5;
+  box-shadow: 0 1px 2px rgba(0,0,0,.35);
+  transition: transform .2s ease;
+}
+.ui-switch input:checked + .track {
+  background: rgba(0,229,255,.18);
+  border-color: rgba(0,229,255,.55);
+}
+.ui-switch input:checked + .track .knob {
+  transform: translateX(20px);
+}
+.ui-switch .label-text {
+  font-size: .95rem;
+}
+
+svg[fill="currentColor"] {
+  height: 26px;
+  width: 26px;
+  vertical-align: middle;
+}
+svg[fill="none"] {
+  height: 26px;
+  width: 26px;
+  vertical-align: middle;
 }

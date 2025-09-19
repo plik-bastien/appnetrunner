@@ -1,19 +1,36 @@
 <script lang="ts" setup>
-const props = defineProps<{open:boolean,title:string,value:number}>()
-const emit = defineEmits<{(e:'close'):void,(e:'inc',delta:number):void}>()
+const props = defineProps<{ open: boolean; title: string; value: number }>()
+const emit = defineEmits<{ (e: 'close'): void; (e: 'inc', delta: number): void }>()
+
+function vibrate(ms = 10) {
+  try {
+    (navigator as any)?.vibrate?.(ms)
+  } catch {}
+}
+
+function handleClose() {
+
+  emit('close')
+}
+
+function handleInc(delta: number) {
+  vibrate()
+  emit('inc', delta)
+}
 </script>
+
 <template>
   <div v-if="open" class="side-modal">
-    <div class="side-modal-backdrop" @click="emit('close')"></div>
+    <div class="side-modal-backdrop" @click="handleClose"></div>
     <div class="cp-modal relative mx-3 w-full max-w-md z-10">
       <header class="mb-3 flex items-center justify-between">
         <h3 class="cp-title">{{ title }}</h3>
-        <button class="cp-panel px-2 py-1" @click="emit('close')">Fermer</button>
+        <button class="cp-panel px-2 py-1" @click="handleClose">Fermer</button>
       </header>
       <div class="flex items-center justify-between">
-        <button class="cp-panel text-xl px-3 py-2" @click="emit('inc',-1)">-</button>
+        <button class="cp-panel text-xl px-3 py-2" @click="handleInc(-1)">-</button>
         <div class="font-mono text-5xl">{{ value }}</div>
-        <button class="cp-panel text-xl px-3 py-2" @click="emit('inc',+1)">+</button>
+        <button class="cp-panel text-xl px-3 py-2" @click="handleInc(+1)">+</button>
       </div>
     </div>
   </div>
