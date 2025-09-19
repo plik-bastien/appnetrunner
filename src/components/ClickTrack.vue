@@ -3,7 +3,13 @@ const props = withDefaults(defineProps<{ value: number, max: number }>(), { valu
 const emit = defineEmits<{ (e:'update', v:number): void }>()
 
 function onPick(idx:number){
-  if (props.value === idx && idx === 1) emit('update', 0)
+  // Toggle with contiguous rule:
+  // - If idx is OFF (idx > value): set to idx (lights 1..idx)
+  // - If idx is ON:
+  //     - If idx == value: set to idx-1 (turns off only the topmost)
+  //     - If idx < value: set to idx (reduce to idx, keep 1..idx)
+  if (idx > props.value) emit('update', idx)
+  else if (idx === props.value) emit('update', Math.max(0, idx - 1))
   else emit('update', idx)
 }
 </script>

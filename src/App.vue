@@ -105,8 +105,8 @@ function openReset(){ menuOpen.value=false; confirmReset.value=true }
           <button class="cp-panel px-2 py-1" @click="menuOpen=false">Fermer</button>
         </header>
         <div class="space-y-2">
-          <button class="cp-panel w-full px-3 py-3" @click="toggleSwap()">Inverser Runner / Corporation</button>
-          <button class="cp-panel w-full px-3 py-3" @click="openReset()">Réinitialiser la partie…</button>
+          <button class="cp-panel w-full px-3 py-3" @click="toggleSwap()">⇅ Inverser Runner / Corporation</button>
+          <button class="cp-panel w-full px-3 py-3" @click="openReset()">⟲ Réinitialiser la partie…</button>
         </div>
       </div>
     </div>
