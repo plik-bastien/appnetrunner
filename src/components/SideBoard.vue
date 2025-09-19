@@ -41,7 +41,9 @@ const currentValue = computed(() => {
 function inc(delta: number) {
   const side = props.side
   switch (openKey.value) {
-    case 'agendaPoints': g.inc(side, 'agendaPoints', delta); break
+    case 'agendaPoints':
+      g.incAgenda(side, delta)              // ✅ négatif autorisé
+      break
     case 'credits': g.inc(side, 'credits', delta); break
     case 'badPub': g.inc('corp', 'badPub', delta); break
     case 'tags': g.inc('runner', 'tags', delta); break
@@ -50,6 +52,7 @@ function inc(delta: number) {
     case 'relais': g.inc('runner', 'relais', delta); break
   }
 }
+
 </script>
 
 <template>
@@ -133,7 +136,7 @@ function inc(delta: number) {
             <template #label>
               <span v-if="!showIcons">TAGS</span>
 
-              <svg v-else  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 56" fill="none">
+              <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 56" fill="none">
                 <!-- Cadre extérieur -->
                 <path d="M10,2h60c4.4,0,8,3.6,8,8v36c0,4.4-3.6,8-8,8H10c-4.4,0-8-3.6-8-8V10C2,5.6,5.6,2,10,2z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />

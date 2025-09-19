@@ -23,6 +23,10 @@ export const useGameStore = defineStore('game', {
   getters: { runnerHandMax: (s)=> Math.max(0, 5 - s.runner.damage.neuro) },
   actions: {
     inc(side:Side,key:any,delta:number){ /* @ts-ignore */ this[side][key] = Math.max(0, this[side][key]+delta); saveState(this.$state as GameState) },
+    incAgenda(side: 'runner'|'corp', delta: number) {
+      this[side].agendaPoints += delta
+      saveState(this.$state as GameState)
+    },
     incDamage(type:keyof Damage,delta:number){ this.runner.damage[type]=Math.max(0,this.runner.damage[type]+delta); saveState(this.$state as GameState) },
     reset(){ this.$state = structuredClone(defaultState); saveState(this.$state as GameState) }
   }
